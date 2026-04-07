@@ -1,0 +1,18 @@
+{
+  "users": {
+    "demo-user": {
+      "uid": "demo-user",
+      "displayName": "Demo User",
+      "email": "demo@nutrivita.app",
+      "profileComplete": true,
+      "dailyCalorieTarget": 2500,
+      "healthGoal": "maintain",
+      "age": 28,
+      "weight": 75,
+      "height": 175,
+      "activityLevel": "active",
+      "dietaryPreference": "omnivore",
+      "dailyLogs": {}
+    }
+  }
+}

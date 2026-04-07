@@ -1,0 +1,103 @@
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #6C63FF;
+    --color-gold: #FFD700;
+    --color-bg: #121212;
+    --color-surface: #1E1E1E;
+    --color-text: #F5F5F5;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #121212;
+    color: #F5F5F5;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1E1E1E;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #6C63FF;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8B85FF;
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 2px solid #6C63FF;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-glass border border-white/10 rounded-2xl shadow-glass;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-gold bg-clip-text text-transparent;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-light text-white font-semibold px-6 py-3 rounded-xl
+           transition-all duration-300 hover:shadow-glow focus-visible:ring-2 focus-visible:ring-primary
+           active:scale-95;
+  }
+
+  /* Gold accent button */
+  .btn-gold {
+    @apply bg-gold hover:bg-gold-dark text-background font-semibold px-6 py-3 rounded-xl
+           transition-all duration-300 hover:shadow-glow-gold active:scale-95;
+  }
+
+  /* Input field */
+  .input-field {
+    @apply bg-surface-2 border border-white/10 rounded-xl px-4 py-3 text-text-primary
+           placeholder-text-secondary focus:outline-none focus:border-primary focus:ring-1
+           focus:ring-primary transition-all duration-200 w-full;
+  }
+
+  /* Progress bar track */
+  .progress-track {
+    @apply bg-surface-2 rounded-full overflow-hidden;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #6C63FF, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-border {
+    box-shadow: 0 0 0 1px rgba(108, 99, 255, 0.3), 0 0 20px rgba(108, 99, 255, 0.1);
+  }
+}
