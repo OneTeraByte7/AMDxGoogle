@@ -1,6 +1,6 @@
 // src/controllers/authController.js — User profile management
 const Joi = require('joi');
-const { db } = require('../services/firebaseAdmin');
+const { db } = require('../services/localDb');
 const { calculateDailyTarget } = require('../utils/calorieCalc');
 
 const profileSchema = Joi.object({
