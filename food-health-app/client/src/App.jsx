@@ -1,7 +1,6 @@
 // src/App.jsx — Root router with AnimatePresence for page transitions
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { useAuth } from './context/AuthContext';
 
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
@@ -10,7 +9,6 @@ import Assistant from './pages/Assistant';
 import ProfileSetup from './pages/ProfileSetup';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/common/ProtectedRoute';
-import Loader from './components/common/Loader';
 
 function AnimatedRoutes() {
     const location = useLocation();
@@ -57,9 +55,6 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
-    const { authLoading } = useAuth();
-    if (authLoading) return <Loader fullscreen />;
-
     return (
         <BrowserRouter>
             <AnimatedRoutes />
