@@ -1,6 +1,6 @@
 // src/controllers/logsController.js — Daily food log CRUD
 const Joi = require('joi');
-const { db } = require('../services/firebaseAdmin');
+const { db } = require('../services/localDb');
 const { calculatePortionNutrition } = require('../services/edamam');
 
 const logSchema = Joi.object({
