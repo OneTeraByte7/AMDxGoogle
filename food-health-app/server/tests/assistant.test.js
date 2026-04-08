@@ -15,7 +15,7 @@ const mockProfile = {
     profileComplete: true,
 };
 
-jest.mock('../src/services/firebaseAdmin', () => ({
+jest.mock('../src/services/localDb', () => ({
     db: {
         collection: jest.fn().mockReturnValue({
             doc: jest.fn().mockReturnValue({
