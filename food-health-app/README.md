@@ -6,7 +6,7 @@ A full-stack, production-ready web application for nutrition tracking, AI-powere
 
 | Feature | Description |
 |---|---|
-| 🔐 **Google Sign-In** | Firebase Authentication — one-click login |
+| 🔐 **Demo User** | Local demo user — no external auth required |
 | 👤 **Smart Profile Setup** | BMR-based calorie target calculation |
 | 🍽️ **Food Logging** | Search via Edamam API, log portions, auto-calculate macros |
 | 📊 **Dashboard** | Calorie progress, pie/line charts, water tracker |
@@ -24,7 +24,7 @@ food-health-app/
 │   ├── src/
 │   │   ├── routes/       # auth, food, logs, assistant, places
 │   │   ├── controllers/  # route handlers
-│   │   ├── services/     # firebaseAdmin, edamam, assistantLogic
+│   │   ├── services/     # localDb, edamam, assistantLogic
 │   │   ├── middleware/   # auth token verification, error handler
 │   │   ├── utils/        # calorieCalc (Mifflin-St Jeor BMR)
 │   │   └── config/       # centralised env config
@@ -36,7 +36,7 @@ food-health-app/
     │   ├── pages/        # Landing, Dashboard, FoodLog, Assistant, ProfileSetup, NotFound
     │   ├── components/   # common, dashboard, foodlog, assistant, maps
     │   ├── context/      # AuthContext, ThemeContext
-    │   ├── services/     # firebase.js, api.js (Axios)
+    │   ├── services/     # local DB shim, api.js (Axios)
     │   └── hooks/        # useUserProfile
     └── .env.example
 ```
@@ -47,7 +47,6 @@ food-health-app/
 
 ### Prerequisites
 - Node.js ≥ 18
-- A Firebase project (free tier works)
 - Optional: Edamam API account, Google Maps API key
 
 ### 1. Clone & install
@@ -63,25 +62,14 @@ cd server && npm install
 cd ../client && npm install
 ```
 
-### 2. Firebase Setup
+### Environment variables
 
-1. Go to [Firebase Console](https://console.firebase.google.com/) → Create a project
-2. Enable **Authentication** → Sign-in method → **Google**
-3. Enable **Firestore Database** (start in test mode, then apply `firestore.rules`)
-4. Generate a **Service Account key** (Project Settings → Service Accounts → Generate new private key)
-5. Register a **Web App** and copy the client config values
-
-### 3. Environment variables
-
-**Server** — copy `server/.env.example` to `server/.env`:
+**Server** — copy `server/.env.example` to `server/.env` and set optional API keys:
 
 ```env
 PORT=5000
 NODE_ENV=development
 CLIENT_ORIGIN=http://localhost:5173
-
-# Paste the entire service account JSON as a string
-FIREBASE_SERVICE_ACCOUNT={"type":"service_account","project_id":"..."}
 
 # Edamam (optional — mock data used if absent)
 EDAMAM_APP_ID=your_app_id
@@ -95,12 +83,6 @@ GOOGLE_MAPS_API_KEY=your_api_key
 
 ```env
 VITE_API_BASE_URL=http://localhost:5000
-VITE_FIREBASE_API_KEY=...
-VITE_FIREBASE_AUTH_DOMAIN=...
-VITE_FIREBASE_PROJECT_ID=...
-VITE_FIREBASE_STORAGE_BUCKET=...
-VITE_FIREBASE_MESSAGING_SENDER_ID=...
-VITE_FIREBASE_APP_ID=...
 VITE_GOOGLE_MAPS_API_KEY=your_key  # Optional
 ```
 
