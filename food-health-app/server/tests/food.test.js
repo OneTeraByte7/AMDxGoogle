@@ -2,7 +2,7 @@
 const request = require('supertest');
 
 // Mock firebase admin before importing app
-jest.mock('../src/services/firebaseAdmin', () => ({
+jest.mock('../src/services/localDb', () => ({
     db: {},
     getAuth: () => ({
         verifyIdToken: jest.fn().mockResolvedValue({ uid: 'test-uid', email: 'test@test.com' }),
