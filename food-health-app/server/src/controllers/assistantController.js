@@ -1,6 +1,6 @@
 // src/controllers/assistantController.js — Smart assistant endpoint
 const Joi = require('joi');
-const { db } = require('../services/firebaseAdmin');
+const { db } = require('../services/localDb');
 const { buildContextReply } = require('../services/assistantLogic');
 
 const messageSchema = Joi.object({
