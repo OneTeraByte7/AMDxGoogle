@@ -7,6 +7,7 @@ import FoodSearch from '../components/foodlog/FoodSearch';
 import DailyLogList from '../components/foodlog/DailyLogList';
 import Loader from '../components/common/Loader';
 import api from '../services/api';
+import toast from 'react-hot-toast';
 
 export default function FoodLog() {
     const [logs, setLogs] = useState([]);
@@ -17,6 +18,10 @@ export default function FoodLog() {
         try {
             const { data } = await api.get(`/api/logs/${today}`);
             setLogs(data.logs || []);
+        } catch (err) {
+            console.error('Failed to fetch logs', err);
+            const msg = err.response?.data?.error?.message || err.message || 'Network error while fetching logs';
+            toast.error(msg, { duration: 5000 });
         } finally {
             setLoading(false);
         }
