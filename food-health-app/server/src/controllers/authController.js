@@ -74,4 +74,47 @@ async function getProfile(req, res, next) {
     }
 }
 
-module.exports = { upsertProfile, getProfile };
+/**
+ * GET /api/auth/summary
+ * Returns the user's profile, today's totals and weekly calorie summary
+ */
+async function getSummary(req, res, next) {
+    try {
+        const uid = req.user.uid;
+        const profileDoc = await db.collection('users').doc(uid).get();
+        if (!profileDoc.exists) {
+            return res.status(404).json({ error: { message: 'Profile not found', code: 'NOT_FOUND' } });
+        }
+
+        const profile = profileDoc.data();
+
+        // Today's totals
+        const today = new Date().toISOString().split('T')[0];
+        const todaySnapshot = await db.collection('users').doc(uid).collection('dailyLogs').where('date', '==', today).get();
+        const todayLogs = todaySnapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+        const todayTotals = todayLogs.reduce((acc, l) => ({
+            calories: acc.calories + (l.calories || 0),
+            protein: acc.protein + (l.protein || 0),
+            carbs: acc.carbs + (l.carbs || 0),
+            fat: acc.fat + (l.fat || 0),
+        }), { calories: 0, protein: 0, carbs: 0, fat: 0 });
+
+        // Weekly calories
+        const results = [];
+        const now = new Date();
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date(now);
+            d.setDate(now.getDate() - i);
+            const dateStr = d.toISOString().split('T')[0];
+            const snap = await db.collection('users').doc(uid).collection('dailyLogs').where('date', '==', dateStr).get();
+            const totalCalories = snap.docs.reduce((acc, doc) => acc + (doc.data().calories || 0), 0);
+            results.push({ date: dateStr, calories: totalCalories });
+        }
+
+        return res.status(200).json({ profile, todayTotals, todayLogs, weekly: results });
+    } catch (err) {
+        return next(err);
+    }
+}
+
+module.exports = { upsertProfile, getProfile, getSummary };
