@@ -21,6 +21,7 @@ const pageVariants = {
 export default function Dashboard() {
     const { profile } = useAuth();
     const [todayLogs, setTodayLogs] = useState([]);
+    const [todayTotals, setTodayTotals] = useState({ calories: 0, protein: 0, carbs: 0, fat: 0 });
     const [weeklyData, setWeeklyData] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -29,12 +30,10 @@ export default function Dashboard() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const [logsRes, weeklyRes] = await Promise.all([
-                    api.get(`/api/logs/${today}`),
-                    api.get('/api/logs/weekly'),
-                ]);
-                setTodayLogs(logsRes.data.logs || []);
-                setWeeklyData(weeklyRes.data.weekly || []);
+                const res = await api.get('/api/auth/summary');
+                setTodayLogs(res.data.todayLogs || []);
+                if (res.data.todayTotals) setTodayTotals(res.data.todayTotals);
+                setWeeklyData(res.data.weekly || []);
             } catch {
                 // Errors handled by api.js interceptor
             } finally {
@@ -44,8 +43,8 @@ export default function Dashboard() {
         fetchData();
     }, [today]);
 
-    // Compute aggregated totals
-    const totals = todayLogs.reduce(
+    // Compute aggregated totals (prefer server-provided totals when available)
+    const totals = todayTotals.calories > 0 ? todayTotals : todayLogs.reduce(
         (acc, log) => {
             acc.calories += log.calories || 0;
             acc.protein += log.protein || 0;
