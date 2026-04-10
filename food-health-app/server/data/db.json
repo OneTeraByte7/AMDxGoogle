@@ -12,7 +12,71 @@
       "height": 175,
       "activityLevel": "active",
       "dietaryPreference": "omnivore",
-      "dailyLogs": {}
+      "dailyLogs": {
+        "9ecc3dee-6f2c-41c5-a980-42a0633ce205": {
+          "foodId": "mock_chicken_breast",
+          "label": "Chicken Breast",
+          "grams": 100,
+          "mealType": "snack",
+          "date": "2026-04-08",
+          "nutrients": {
+            "ENERC_KCAL": 165,
+            "PROCNT": 31,
+            "FAT": 3.6,
+            "CHOCDF": 0,
+            "FIBTG": 0
+          },
+          "calories": 165,
+          "protein": 31,
+          "carbs": 0,
+          "fat": 3.6,
+          "fiber": 0,
+          "uid": "demo-user",
+          "createdAt": "2026-04-08T16:47:32.674Z"
+        },
+        "32bf3672-aa56-4a04-b50e-9c3dc8ac10f0": {
+          "foodId": "mock_almonds",
+          "label": "Almonds",
+          "grams": 100,
+          "mealType": "snack",
+          "date": "2026-04-10",
+          "nutrients": {
+            "ENERC_KCAL": 579,
+            "PROCNT": 21,
+            "FAT": 50,
+            "CHOCDF": 22,
+            "FIBTG": 12.5
+          },
+          "calories": 579,
+          "protein": 21,
+          "carbs": 22,
+          "fat": 50,
+          "fiber": 12.5,
+          "uid": "demo-user",
+          "createdAt": "2026-04-10T14:30:49.779Z"
+        },
+        "d8e50296-c871-4ba2-8976-9b0f5debaf10": {
+          "foodId": "mock_brown_rice",
+          "label": "Brown Rice (cooked)",
+          "grams": 100,
+          "mealType": "snack",
+          "date": "2026-04-10",
+          "nutrients": {
+            "ENERC_KCAL": 216,
+            "PROCNT": 5,
+            "FAT": 1.8,
+            "CHOCDF": 45,
+            "FIBTG": 3.5
+          },
+          "calories": 216,
+          "protein": 5,
+          "carbs": 45,
+          "fat": 1.8,
+          "fiber": 3.5,
+          "uid": "demo-user",
+          "createdAt": "2026-04-10T14:30:57.129Z"
+        }
+      }
     }
   }
 }
